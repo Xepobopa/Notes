@@ -1,0 +1,13 @@
+.card {
+    transition: all ease-in-out 100ms;
+    height: 100px;
+    text-decoration: none;
+
+}
+/*h-100, text-reset text-decoration-none */
+
+.card:hover ,
+.card:focus {
+    translate: 0 -5px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
+}
