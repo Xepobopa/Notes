@@ -1,71 +1,66 @@
-import React, { useEffect, useState } from "react";
-import NewNote from './NewNote';
-import NoteList from "./NoteList";
+import React, {useEffect, useState} from "react";
+import {Route, Routes, Navigate} from "react-router-dom";
+import {Button, Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import NoteLayout from "./NoteLayout";
+import NoteList from "./NoteList";
+import NewNote from './NewNote';
+import {Note as SelectedNote} from "./Note";
 import axios from "axios";
+import EditNote from "./EditNote";
+import {useAppDispatch, useAppSelector} from "./redux";
+import {fetchAllNotes} from "./ActionCreator";
+import {useDispatch} from "react-redux";
 
 export type Note = {
-  id: string;
-  note: NoteData;
+    id: string;
+    note: NoteData;
 };
 
 export type NoteData = {
-  title: string;
-  markdown: string;
-  tags: Tag[];
+    title: string;
+    markdown: string;
+    tags: Tag[];
 }
 
 export type Tag = {
-  id: string;
-  label: string;
+    id: string;
+    label: string;
 }
 
 const App = () => {
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [isRefetch, setIsRefetch] = useState<boolean>(false);
+    const [isRefetch, setIsRefetch] = useState<boolean>(false);
+    const {notes, isLoading} = useAppSelector((state) => state.note);
+    const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    getNotes();
-}, [isRefetch])
+    useEffect(() => {
+        dispatch(fetchAllNotes());
+        //getNotes();
+    }, [isRefetch])
 
-  async function getNotes() {
-    try {
-      const { data, status } = await axios.get<Note[]>('http://localhost:5000/notes');
-      setNotes(data);
-      console.log(data);
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        console.error(`${e.code}. ${e.name} - ${e.message}`);
-      }
-      console.error(e);
+    console.log(notes);
+
+    function getAvailableTags(notes: Note[]) {
+        let res = new Array<Tag>();
+        notes.map(note => note.note.tags.map(e => res.push(e)));
+        const uniqueSet = new Set(res.map(tag => JSON.stringify(tag)));
+        return Array.from(uniqueSet).map(tag => JSON.parse(tag));
     }
-  }
 
-function getAvailableTags(notes: Note[]) {
-  let res = new Array();
-  notes.map(note => note.note.tags.map(e => res.push(e)));
-  return res;
-}
-
-return (
-
-  <Container className={'my-4'}>
-    {/*TODO: create context with notes*/}
-    <Button onClick={() => setIsRefetch(!isRefetch)}>Refetch</Button>
-    <Routes>
-      <Route path="/" element={<NoteList availableTags={getAvailableTags(notes)} notes={notes} />} />
-      <Route path='/new' element={<NewNote />} />
-      <Route path={'/:id'} element={<NoteLayout notes={notes}/>} >
-        <Route index element={<h1>Id</h1>} />
-        <Route path={'edit'} element={<h1>Id Edit</h1>} />
-      </Route>
-      <Route path="*" element={<Navigate to={'/'} />} />
-    </Routes>
-  </Container>
-);
+    return (
+        <Container className={'my-4'}>
+            <Button onClick={() => setIsRefetch(!isRefetch)}>Refetch</Button>
+            <Routes>
+                <Route path="/" element={<NoteList availableTags={getAvailableTags(notes)}/>}/>
+                <Route path='/new' element={<NewNote/>}/>
+                <Route path={'/:id'} element={<NoteLayout/>}>
+                    <Route index element={<SelectedNote/>}/>
+                    <Route path={'edit'} element={<EditNote />}/>
+                </Route>
+                <Route path="*" element={<Navigate to={'/'}/>}/>
+            </Routes>
+        </Container>
+    );
 }
 
 export default App;

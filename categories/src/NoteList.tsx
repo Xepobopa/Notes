@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {Badge, Button, Card, Col, Form, Row, Stack} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import ReactSelect from 'react-select';
 import {Note, Tag} from "./App";
 // @ts-ignore
 import styles from './NoteLists.module.css';
+import {useAppSelector} from "./redux";
 
 type NoteCardProps = {
     id: string;
@@ -14,12 +15,12 @@ type NoteCardProps = {
 
 type NoteListProps = {
     availableTags: Tag[];
-    notes: Note[];
 }
 
-const NoteList = ({availableTags, notes}: NoteListProps) => {
+const NoteList = ({availableTags}: NoteListProps) => {
     const [tags, setTags] = useState<Tag[]>([]);
     const [title, setTitle] = useState<string>('');
+    const {notes, isLoading} = useAppSelector((state) => state.note);
 
     const filteredNotes = notes.filter(note => (title === ''
             || note.note.title.toLowerCase().includes(title.toLowerCase()))
@@ -38,7 +39,6 @@ const NoteList = ({availableTags, notes}: NoteListProps) => {
                             <Button variant="primary">Create</Button>
                         </Link>
                         <Button variant="outline-secondary">Edit Tags</Button>
-
                     </Stack>
                 </Col>
             </Row>
@@ -70,13 +70,20 @@ const NoteList = ({availableTags, notes}: NoteListProps) => {
                     </Col>
                 </Row>
             </Form>
-            <Row xs={1} sm={2} lg={3} xl={4} className={'g-3'}>
-                {filteredNotes.map(note => (
-                    <Col key={note.id}>
-                        <NoteCard id={note.id} title={note.note.title} tags={note.note.tags}/>
-                    </Col>
-                ))}
-            </Row>
+            {isLoading
+                ?  <div className="d-flex justify-content-center mt-5">
+                    <button className="btn btn-primary" type="button" disabled>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span className="visually-hidden">Loading...</span>
+                    </button>
+                    </div>
+                :   <Row xs={1} sm={2} lg={3} xl={4} className={'g-3'}>
+                    {filteredNotes.map(note => (
+                        <Col key={note.id}>
+                            <NoteCard id={note.id} title={note.note.title} tags={note.note.tags}/>
+                        </Col>
+                    ))}
+                    </Row>}
         </>
     );
 }

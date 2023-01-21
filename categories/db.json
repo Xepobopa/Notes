@@ -2,34 +2,8 @@
   "notes": [
     {
       "note": {
-        "title": "2",
-        "markdown": "2",
-        "tags": [
-          {
-            "label": "2",
-            "id": "2"
-          }
-        ]
-      },
-      "id": 7
-    },
-    {
-      "note": {
-        "title": "Сирлик",
-        "markdown": "Покормить сирлика, погладить",
-        "tags": [
-          {
-            "label": "Корм",
-            "id": "Корм"
-          }
-        ]
-      },
-      "id": 8
-    },
-    {
-      "note": {
-        "title": "New",
-        "markdown": "## Title\n\ntest",
+        "title": "RTKQ refetch query",
+        "markdown": "Something new about refetching on RTKQ",
         "tags": [
           {
             "label": "new",
@@ -40,12 +14,58 @@
             "id": "something"
           },
           {
-            "label": "dfgvdfg",
-            "id": "dfgvdfg"
+            "label": "query",
+            "id": "query"
           }
         ]
       },
-      "id": 9
+      "id": 10
+    },
+    {
+      "note": {
+        "title": "Redux CreateAsyncThunk",
+        "markdown": "## Basic createAsyncThunk Types\nIn the most common use cases, you should not need to explicitly declare any types for the createAsyncThunk call itself.\n\nJust provide a type for the first argument to the payloadCreator argument as you would for any function argument, and the resulting thunk will accept the same type as its input parameter. The return type of the payloadCreator will also be reflected in all generated action types.",
+        "tags": [
+          {
+            "label": "Redux",
+            "id": "Redux"
+          },
+          {
+            "label": "Async ",
+            "id": "Async "
+          },
+          {
+            "label": "Query",
+            "id": "Query"
+          }
+        ]
+      },
+      "id": 11
+    },
+    {
+      "note": {
+        "title": "RTKQ refetch",
+        "markdown": "Something new about refetching on RTKQ\n## Something new",
+        "tags": [
+          {
+            "label": "new",
+            "id": "new"
+          },
+          {
+            "label": "something",
+            "id": "something"
+          },
+          {
+            "label": "query",
+            "id": "query"
+          },
+          {
+            "label": "newtag",
+            "id": "newtag"
+          }
+        ]
+      },
+      "id": 12
     }
   ]
 }
