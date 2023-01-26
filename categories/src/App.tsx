@@ -2,35 +2,19 @@ import React, {useEffect, useState} from "react";
 import {Route, Routes, Navigate} from "react-router-dom";
 import {Button, Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NoteLayout from "./NoteLayout";
-import NoteList from "./NoteList";
-import NewNote from './NewNote';
-import {Note as SelectedNote} from "./Note";
-import axios from "axios";
-import EditNote from "./EditNote";
-import {useAppDispatch, useAppSelector} from "./redux";
-import {fetchAllNotes} from "./ActionCreator";
-import {useDispatch} from "react-redux";
+import NoteLayout from "./routes/note/NoteLayout";
+import NoteList from "./routes/home/NoteList";
+import NewNote from './routes/new/NewNote';
+import {Note as SelectedNote} from "./routes/note/Note";
+import EditNote from "./routes/edit/EditNote";
+import {useAppDispatch, useAppSelector} from "./store/redux";
+import {fetchAllNotes} from "./store/ActionCreator";
+import {Note, Tag} from "./types";
 
-export type Note = {
-    id: string;
-    note: NoteData;
-};
-
-export type NoteData = {
-    title: string;
-    markdown: string;
-    tags: Tag[];
-}
-
-export type Tag = {
-    id: string;
-    label: string;
-}
 
 const App = () => {
     const [isRefetch, setIsRefetch] = useState<boolean>(false);
-    const {notes, isLoading} = useAppSelector((state) => state.note);
+    const {notes} = useAppSelector((state) => state.note);
     const dispatch = useAppDispatch();
 
     useEffect(() => {

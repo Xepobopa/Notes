@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
 import { useState } from "react";
-import { NoteData, Tag, Note } from './App';
 import CreatableReactSelect from "react-select/creatable";
 import { Form, Stack, Row, Col, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import {useAppDispatch, useAppSelector} from "./redux";
-import {addNote, changeNoteById} from "./ActionCreator";
+import {useAppDispatch, useAppSelector} from "../store/redux";
+import {addNote, changeNoteById} from "../store/ActionCreator";
+import {Note, NoteData, Tag} from "../types";
 
 const NoteForm = () => {
     const [tags, setTags] = useState<Tag[]>([]);

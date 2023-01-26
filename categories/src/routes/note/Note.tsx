@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {Row, Col, Badge, Stack, Button, Spinner, Alert} from "react-bootstrap";
+import React, {useEffect} from 'react';
+import {Row, Col, Badge, Stack, Button} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import {useNote} from "./NoteLayout";
-import {useAppDispatch, useAppSelector} from "./redux";
-import {deleteNoteById, fetchNoteById} from "./ActionCreator";
+import {useAppDispatch, useAppSelector} from "../../store/redux";
+import {deleteNoteById, fetchNoteById} from "../../store/ActionCreator";
 
 const Note = () => {
     const id = useNote();

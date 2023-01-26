@@ -1,21 +1,14 @@
 import React, {useState} from "react";
-import {Badge, Button, Card, Col, Form, Row, Stack} from "react-bootstrap";
-import {Link, NavLink} from "react-router-dom";
+import {Button, Col, Form, Row, Stack} from "react-bootstrap";
+import {Link} from "react-router-dom";
 import ReactSelect from 'react-select';
-import {Note, Tag} from "./App";
 // @ts-ignore
 import styles from './NoteLists.module.css';
-import {useAppSelector} from "./redux";
+import {useAppSelector} from "../../store/redux";
+import {NoteCard} from "./NoteCard";
+import {NoteListProps} from "./types";
+import {Tag} from "../../types";
 
-type NoteCardProps = {
-    id: string;
-    title: string;
-    tags: Tag[];
-}
-
-type NoteListProps = {
-    availableTags: Tag[];
-}
 
 const NoteList = ({availableTags}: NoteListProps) => {
     const [tags, setTags] = useState<Tag[]>([]);
@@ -86,24 +79,6 @@ const NoteList = ({availableTags}: NoteListProps) => {
                     </Row>}
         </>
     );
-}
-
-function NoteCard({id, title, tags}: NoteCardProps) {
-    return <Card as={Link} to={`/${id}`} className={`text-reset ${styles.card}`}>
-        <Card.Body>
-            <Stack gap={2} className={'align-items-center justify-content-center h-100'}>
-                <span className={'fs-5'}>{title}</span>
-                {tags.length > 0 && (
-                    <Stack gap={1} direction={'horizontal'}
-                           className={'justify-content-center flex-wrap'}>
-                        {tags.map(tag => (
-                            <Badge className={'text-truncate'} key={tag.id}>{tag.label}</Badge>
-                        ))}
-                    </Stack>
-                )}
-            </Stack>
-        </Card.Body>
-    </Card>
 }
 
 export default NoteList;

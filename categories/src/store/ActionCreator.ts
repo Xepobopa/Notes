@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import {Note, NoteData} from "./App";
+import {Note, NoteData} from "../types";
+
 
 export const fetchAllNotes = createAsyncThunk('notes/fetchAll',
     async (arg, thunkAPI) => {

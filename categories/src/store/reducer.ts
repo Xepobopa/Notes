@@ -1,13 +1,7 @@
-import {Note} from "./App";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchAllNotes, addNote, changeNoteById, fetchNoteById, deleteNoteById} from "./ActionCreator";
-
-interface Notes {
-    notes: Note[];
-    isLoading: boolean;
-    error: string;
-    fetchedNote: Note | undefined;
-}
+import {Notes} from "./types";
+import {Note} from "../types";
 
 const initialState: Notes = {
     notes: [],
@@ -61,7 +55,7 @@ export const NoteSlice = createSlice({
                         note.note = action.payload.note;
                     }
                 })
-                state.fetchedNote = undefined;
+                state.fetchedNote = action.payload;
                 //state.notes[state.notes.findIndex((note) => note.id === action.payload.id)].note = action.payload.note;
             })
 

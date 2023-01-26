@@ -1,6 +1,5 @@
 import React from 'react';
-import {Note} from "./App";
-import {Navigate, Outlet, useOutlet, useOutletContext, useParams} from "react-router-dom";
+import {Navigate, Outlet, useOutletContext, useParams} from "react-router-dom";
 
 const NoteLayout = () => {
     const { id } = useParams();

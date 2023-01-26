@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import NoteForm from "./NoteForm";
+import NoteForm from "../NoteForm";
 
 const NewNote = () => {
 

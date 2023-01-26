@@ -37,6 +37,10 @@
           {
             "label": "Query",
             "id": "Query"
+          },
+          {
+            "label": "new",
+            "id": "new"
           }
         ]
       },
